@@ -15,7 +15,7 @@ import java.util.Optional;
 @Log4j2
 @RequiredArgsConstructor
 @Service
-public class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 
     private final UsersRepository repository;
 
