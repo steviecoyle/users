@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class UserEntity implements Serializable {
 
     @Id
@@ -20,6 +20,8 @@ public class UserEntity implements Serializable {
     private String forename;
     private String surname;
     private String userName;
+
+    @Column(name = "email-address")
     private String emailAddress;
     private String password;
 }
