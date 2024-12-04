@@ -7,6 +7,7 @@ import com.scoyle.users.persistence.repository.UsersRepository;
 import com.scoyle.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Optional;
 class UserServiceImpl implements UserService {
 
     private final UsersRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
     private static final String USER_NOT_FOUND = "User not found";
     private static final String LOG_USER_NOT_FOUND = "User not found for id: {}";
@@ -75,8 +77,7 @@ class UserServiceImpl implements UserService {
         userEntity.setForename(userDTO.getForename());
         userEntity.setSurname(userDTO.getSurname());
         userEntity.setUserName(userDTO.getUserName());
-        // TODO encrypt password
-        userEntity.setPassword(userDTO.getPassword());
+        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userEntity.setEmailAddress(userDTO.getEmailAddress());
         return userEntity;
     }
