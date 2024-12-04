@@ -20,6 +20,7 @@ class UserServiceImpl implements UserService {
     private final UsersRepository repository;
 
     private static final String USER_NOT_FOUND = "User not found";
+    private static final String LOG_USER_NOT_FOUND = "User not found for id: {}";
 
     @Override
     public UserEntity createUser(CreateUserDto userDTO) {
@@ -35,7 +36,7 @@ class UserServiceImpl implements UserService {
             userToUpdate.setId(id);
             return repository.save(userToUpdate);
         } else {
-            log.error("User not found for id: {}", id);
+            log.error(LOG_USER_NOT_FOUND, id);
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
     }
@@ -47,7 +48,7 @@ class UserServiceImpl implements UserService {
         if (optionalUserEntity.isPresent()) {
             repository.deleteById(id);
         } else {
-            log.error("User not found for id: {}", id);
+            log.error(LOG_USER_NOT_FOUND, id);
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
     }
@@ -64,7 +65,7 @@ class UserServiceImpl implements UserService {
         if (optionalUserEntity.isPresent()) {
             return optionalUserEntity.get();
         } else {
-            log.error("User not found for id: {}", id);
+            log.error(LOG_USER_NOT_FOUND, id);
             throw new UserNotFoundException(USER_NOT_FOUND);
         }
     }
